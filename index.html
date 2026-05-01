@@ -336,21 +336,54 @@ async function fetchSheet(sheetName) {
 var STATE = { produits:[], hero:[], loaded:false };
 
 async function initApp() {
-  try {
-    var produits = await fetchSheet('PRODUITS');
-    var hero = await fetchSheet('HERO');
-    STATE.produits = produits.length ? produits : FALLBACK.produits;
-    STATE.hero = hero.length ? hero.filter(function(h){ return h.actif === 'OUI'; }) : FALLBACK.hero;
-    console.log('✅ Google Sheets connecté — ' + STATE.produits.length + ' produits chargés');
-  } catch(e) {
-    console.warn('⚠️ Sheet inaccessible, données de secours utilisées:', e.message);
-    STATE.produits = FALLBACK.produits;
-    STATE.hero = FALLBACK.hero;
-  }
-  STATE.loaded = true;
+  // Afficher le site immédiatement avec données de secours
+  STATE.produits = FALLBACK.produits;
+  STATE.hero = FALLBACK.hero;
   renderHero();
   renderProduits();
   hideLanding();
+
+  // Puis tenter de charger depuis Google Sheets
+  try {
+    var produits = await fetchSheet('PRODUITS');
+    var hero = await fetchSheet('HERO');
+
+    // Normaliser les clés (gérer espaces, majuscules)
+    var heroFiltré = hero.filter(function(h){
+      var actif = '';
+      Object.keys(h).forEach(function(k){
+        if(k.toLowerCase().trim() === 'actif') actif = h[k];
+      });
+      return actif.toString().trim().toUpperCase() === 'OUI';
+    });
+
+    // Normaliser photo et titre pour hero
+    heroFiltré = heroFiltré.map(function(h){
+      var obj = {};
+      Object.keys(h).forEach(function(k){
+        obj[k.toLowerCase().trim()] = h[k];
+      });
+      return obj;
+    });
+
+    if (produits.length) {
+      STATE.produits = produits.map(function(p){
+        var obj = {};
+        Object.keys(p).forEach(function(k){ obj[k.toLowerCase().trim()] = p[k]; });
+        return obj;
+      });
+    }
+    if (heroFiltré.length) STATE.hero = heroFiltré;
+
+    console.log('✅ Google Sheets connecté — ' + STATE.produits.length + ' produits, ' + STATE.hero.length + ' slides hero');
+
+    // Re-render avec données réelles
+    renderHero();
+    renderProduits();
+  } catch(e) {
+    console.warn('⚠️ Sheet inaccessible, données de secours utilisées:', e.message);
+  }
+  STATE.loaded = true;
 }
 
 // ── HERO DYNAMIQUE ──
@@ -361,22 +394,31 @@ function renderHero() {
   track.innerHTML = '';
   dots.innerHTML = '';
 
-  STATE.hero.forEach(function(slide, i) {
-    var titreLines = slide.titre_fr ? slide.titre_fr.replace(/\\n/g,'\n') : '';
-    var titreHTML = titreLines.split('\n').join('<br>');
-    var produit = STATE.produits.find(function(p){ return p.id === slide.id_produit; }) || {};
-    var nomProd = produit.nom_fr || slide.id_produit;
+  // Filtrer les slides vides (lignes vides du sheet)
+  var heroValides = STATE.hero.filter(function(slide){
+    var p = Object.values(slide).join('');
+    return p.trim() !== '';
+  });
+
+  heroValides.forEach(function(slide, i) {
+    var titre = (slide.titre_fr || slide["titre_fr"] || "MY NUGO") + "";
+    var photo = (slide["photo"] || slide.photo || "") + "";
+    var badge = (slide["badge"] || slide.badge || "") + "";
+    var idProd = slide["id_produit_lié"] || slide.id_produit || "";
+    var titreHTML = titre.replace(/\\n/g,"\n").split("\n").join("<br>");
+    var produit = STATE.produits.find(function(p){ return (p.id||"") === idProd; }) || {};
+    var nomProd = produit.nom_fr || idProd || "MY NUGO";
 
     var div = document.createElement('div');
     div.className = 'hero-slide';
     div.innerHTML =
-      '<img src="' + slide.photo + '" alt="' + nomProd + '" loading="' + (i===0?'eager':'lazy') + '"/>' +
+      '<img src="' + photo + '" alt="' + nomProd + '" loading="' + (i===0?'eager':'lazy') + '"/>' +
       '<div class="ov"></div>' +
       '<div class="hc">' +
         '<h1 class="h-title">' + titreHTML + '</h1>' +
         '<button class="h-btn" onclick="wa(\'' + nomProd.replace(/'/g,"\\'") + '\')">Découvrir →</button>' +
       '</div>' +
-      '<div class="h-badge">' + (slide.badge||'') + '</div>';
+      '<div class="h-badge">' + (badge||'') + '</div>';
     track.appendChild(div);
 
     var dot = document.createElement('div');
@@ -385,7 +427,7 @@ function renderHero() {
     dots.appendChild(dot);
   });
 
-  HERO_TOT = STATE.hero.length;
+  HERO_TOT = heroValides.length;
   hRender();
 }
 
