@@ -111,11 +111,7 @@ body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x
 .soc-bar{padding:11px 20px;border-bottom:0.5px solid var(--g200);display:flex;align-items:center;justify-content:center;gap:24px;}
 .soc-link{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--black);text-decoration:none;border-bottom:1px solid var(--black);padding-bottom:1px;font-weight:500;}
 
-/* FILTERS */
-.filters{display:flex;overflow-x:auto;border-bottom:0.5px solid var(--g200);padding:0 20px;scrollbar-width:none;}
-.filters::-webkit-scrollbar{display:none;}
-.ftab{font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:14px 16px;cursor:pointer;border-bottom:2px solid transparent;color:var(--g400);white-space:nowrap;flex-shrink:0;transition:all .2s;font-weight:500;}
-.ftab.active{color:var(--black);border-bottom-color:var(--black);}
+
 
 /* SECTION */
 .section{padding:40px 20px;}
@@ -289,7 +285,7 @@ body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x
 <body>
 
 <!-- ══ CONNEXION GOOGLE SHEETS ══
-     Remplace AIzaSyD0mcctzkIuSJBt8r00HGO1UIG3BfVsG2A par ta vraie clé API Google
+     Remplace COLLE_TA_CLE_ICI par ta vraie clé API Google
      Ne partage jamais cette clé publiquement
 -->
 <script>
@@ -432,13 +428,10 @@ function renderHero() {
 }
 
 // ── PRODUITS DYNAMIQUES ──
-function renderProduits(filtre) {
+function renderProduits() {
   var grid = document.getElementById('prodGrid');
   if (!grid) return;
   var produits = STATE.produits;
-  if (filtre && filtre !== 'Toutes') {
-    produits = produits.filter(function(p){ return p.categorie === filtre; });
-  }
   grid.innerHTML = '';
   produits.forEach(function(p) {
     var rupture = p.statut === 'rupture';
@@ -508,7 +501,7 @@ function selectCoffret(el,nom,prix){
 }
 function submitSurprise(){
   var c=document.getElementById('coffretSelected').value;
-  if(c.indexOf('lez')>-1){ alert('Veuillez choisir un coffret.'); return; }
+  if(!c||c.indexOf('lectionnez')>-1||c.indexOf('lectionnez')>-1){ alert('Veuillez choisir un coffret.'); return; }
   var n=document.getElementById('clientNom').value;
   var p=document.getElementById('clientTel').value;
   var o=document.getElementById('clientOcc').value;
@@ -529,12 +522,7 @@ function wa(item){
   window.open('https://wa.me/2250151939394?text='+encodeURIComponent(t),'_blank');
 }
 
-// ── FILTRES ──
-function setFiltre(el, filtre){
-  document.querySelectorAll('.ftab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
-  renderProduits(filtre);
-}
+
 
 // ── LANCEMENT ──
 document.addEventListener('DOMContentLoaded', function(){
@@ -560,11 +548,11 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- TICKER -->
 <div class="tk">
   <div class="tk-i">
-    <div class="tk-item"><b>✦</b> Collection Harmonie 2025</div>
+    <div class="tk-item"><b>✦</b> Collection Résilience 2026</div>
     <div class="tk-item"><b>·</b> RÉSISTER · CRÉER · INSPIRER</div>
     <div class="tk-item"><b>✦</b> Livraison Afrique &amp; Europe</div>
     <div class="tk-item"><b>·</b> Commandez via WhatsApp</div>
-    <div class="tk-item"><b>✦</b> Collection Harmonie 2025</div>
+    <div class="tk-item"><b>✦</b> Collection Résilience 2026</div>
     <div class="tk-item"><b>·</b> RÉSISTER · CRÉER · INSPIRER</div>
     <div class="tk-item"><b>✦</b> Livraison Afrique &amp; Europe</div>
     <div class="tk-item"><b>·</b> Commandez via WhatsApp</div>
@@ -629,17 +617,11 @@ document.addEventListener('DOMContentLoaded', function(){
     <a class="soc-link" href="https://www.tiktok.com/@nugobyekd" target="_blank">TikTok @nugobyekd</a>
   </div>
 
-  <div class="filters">
-    <div class="ftab active" onclick="setFiltre(this,'Toutes')">Toutes</div>
-    <div class="ftab" onclick="setFiltre(this,'Robes')">Robes</div>
-    <div class="ftab" onclick="setFiltre(this,'Ensembles')">Ensembles</div>
-    <div class="ftab" onclick="setFiltre(this,'Capsule Wax')">Capsule Wax</div>
-    <div class="ftab" onclick="setFiltre(this,'Nouveautés')">Nouveautés</div>
-  </div>
+  
 
   <div class="section">
     <div class="sec-hd">
-      <div><h2 class="sec-title">La collection</h2><p class="sec-sub">Harmonie — Printemps 2025</p></div>
+      <div><h2 class="sec-title">La collection</h2><p class="sec-sub">Résilience — 2026</p></div>
       <span class="see-all">Voir tout →</span>
     </div>
     <div class="prod-grid" id="prodGrid">
@@ -657,10 +639,10 @@ document.addEventListener('DOMContentLoaded', function(){
     <div>
       <p class="surp-sect-title">Choisissez votre coffret</p>
       <div class="surp-grid">
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Essentiel','38 €')"><div class="surp-icon">◇</div><p class="surp-opt-name">Essentiel</p><p class="surp-opt-price">38 €</p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Prestige','76 €')"><div class="surp-icon">◈</div><p class="surp-opt-name">Prestige</p><p class="surp-opt-price">76 €</p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Signature','114 €')"><div class="surp-icon">◆</div><p class="surp-opt-name">Signature</p><p class="surp-opt-price">114 €</p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Sur mesure','Devis')"><div class="surp-icon">✦</div><p class="surp-opt-name">Sur mesure</p><p class="surp-opt-price">Devis</p></div>
+        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Argent','38 €')"><div class="surp-icon">◇</div><p class="surp-opt-name">Argent</p><p class="surp-opt-price">38 €<br><span style='font-size:11px;color:var(--g400);'>25 000 FCFA</span></p></div>
+        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Gold','76 €')"><div class="surp-icon">◈</div><p class="surp-opt-name">Gold</p><p class="surp-opt-price">76 €<br><span style='font-size:11px;color:var(--g400);'>50 000 FCFA</span></p></div>
+        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Platine','114 €')"><div class="surp-icon">◆</div><p class="surp-opt-name">Platine</p><p class="surp-opt-price">114 €<br><span style='font-size:11px;color:var(--g400);'>75 000 FCFA</span></p></div>
+        <div class="surp-opt" onclick="selectCoffret(this,'Coffret sur mesure','Devis')"><div class="surp-icon">✦</div><p class="surp-opt-name">Coffret sur mesure</p><p class="surp-opt-price">Sur devis</p></div>
       </div>
       <div class="surp-steps">
         <p class="surp-sect-title">Comment ça marche</p>
@@ -672,12 +654,12 @@ document.addEventListener('DOMContentLoaded', function(){
     </div>
     <div>
       <div class="surp-form">
-        <p class="surp-form-title">Composer mon coffret</p>
-        <div class="fg"><label class="fl">Coffret choisi</label><input class="fi" id="coffretSelected" readonly value="— Sélectionnez ci-dessus —"/></div>
+        <p class="surp-form-title">Choisir mon offre</p>
+        <div class="fg"><label class="fl">Coffret choisi</label><input class="fi" id="coffretSelected" readonly value="" placeholder="— Cliquez sur un coffret ci-dessus —"/></div>
         <div class="fg"><label class="fl">Votre prénom &amp; nom</label><input class="fi" id="clientNom" type="text" placeholder="Ex : Aminata Koné"/></div>
         <div class="fg"><label class="fl">Votre WhatsApp</label><input class="fi" id="clientTel" type="tel" placeholder="+225 07 00 00 00 00"/></div>
         <div class="fg"><label class="fl">Occasion</label><select class="fs" id="clientOcc"><option value="">Sélectionner...</option><option>Anniversaire</option><option>Fête des mères</option><option>Mariage / Fiançailles</option><option>Cadeau d'amour</option><option>Me faire plaisir</option><option>Autre</option></select></div>
-        <div class="fg"><label class="fl">Message cadeau (optionnel)</label><textarea class="ft" id="clientMsg" placeholder="Votre message personnalisé..."></textarea></div>
+        <div class="fg"><label class="fl">Dites-nous un peu plus sur ce que vous recherchez</label><textarea class="ft" id="clientMsg" placeholder="Quelle occasion, quels goûts, quelle taille... Tout ce qui nous aidera à vous conseiller."></textarea></div>
         <button class="f-submit" onclick="submitSurprise()">Envoyer via WhatsApp →</button>
         <p class="f-note">Rappel sous 24h · Emballage cadeau inclus · Délais variables</p>
         <div class="f-success" id="fSuccess"><p>Demande envoyée ✦</p><span>Nous vous rappelons sous 24h</span></div>
@@ -695,7 +677,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div>
       <h3 class="biman-title">Réinsérer,<br>former, élever</h3>
       <p class="biman-desc">Nugo Biman est le volet RSE de MY NUGO. Nous accompagnons de jeunes femmes victimes de prostitution et jeunes désœuvrés dans un processus complet de réinsertion sociale.</p>
-      <p class="biman-desc">Nous les formons. Nous les aidons à restaurer leur âme. Nous leur donnons les outils pour écrire un nouveau chapitre — parce que tout le monde a droit à une seconde chance.</p>
+      <p class="biman-desc">Nous les formons. Nous les aidons à restaurer leur âme et leur dignité. Nous leur donnons les outils pour écrire un nouveau chapitre — parce que tout le monde a droit à une seconde chance.</p>
       <div class="biman-quote"><p class="biman-qt">"Donner une seconde chance, c'est croire que chaque vie mérite d'être réécrite."</p></div>
       <button class="biman-cta" onclick="wa('en savoir plus sur Nugo Biman')">Soutenir le programme →</button>
       <div class="biman-stats">
@@ -720,16 +702,17 @@ document.addEventListener('DOMContentLoaded', function(){
     <div class="about-body">
       <p class="about-eye">✦ La Fondatrice</p>
       <h2 class="about-title">Maimounata<br>Kouma Effi</h2>
-      <p class="about-text">Diplômée en Marketing Général, Maimounata a consacré près de 15 ans au secteur privé, dont 9 années aux Nations Unies en tant qu'assistante administrative et commerciale.</p>
-      <p class="about-text">En 2016, elle est foudroyée par un cancer. Après trois ans de lutte acharnée, elle remporte ce combat en 2019 — plus forte, définitivement tournée vers sa passion.</p>
-      <div class="about-quote"><p class="about-qt">"Cette épreuve m'a rapprochée de mon rêve d'enfant : devenir créatrice de mode et m'engager pour les personnes vulnérables."</p></div>
-      <p class="about-text">Aujourd'hui, elle est la promotrice de MY NUGO — sa marque, son bébé, née il y a 7 ans. Mode africaine contemporaine doublée d'une mission sociale forte à travers Nugo Biman.</p>
+      <p class="about-text">Diplômée en Marketing Général, Maimounata a consacré de nombreuses années au secteur privé, dont plusieurs années aux Nations Unies en tant qu'assistante administrative et commerciale.</p>
+      <p class="about-text">En 2015, elle est foudroyée par un cancer. En pleine lutte, elle fait naître MY NUGO en 2017 — la création comme acte de résistance. La rémission vient en 2018.</p>
+      <div class="about-quote"><p class="about-qt">"Cette épreuve m'a confirmé mon rêve d'enfant : créer, résister, et m'engager pour celles qui en ont besoin."</p></div>
+      <p class="about-text">Aujourd'hui, elle est la promotrice de MY NUGO — sa marque, son bébé, née en 2017. 9 ans de création, de résilience et d'engagement. Mode africaine contemporaine doublée d'une mission sociale forte à travers Nugo Biman.</p>
       <p class="about-tl-title">Parcours</p>
       <div class="about-ev"><span class="about-yr">Ghana</span><p class="about-ev-txt">Licence d'anglais à Accra. Rencontre avec des réalités sociales qui ne la laisseront jamais indifférente.</p></div>
-      <div class="about-ev"><span class="about-yr">2007</span><p class="about-ev-txt">Intègre les Nations Unies. 9 ans au service d'organisations internationales.</p></div>
-      <div class="about-ev"><span class="about-yr">2016</span><p class="about-ev-txt">Diagnostic d'un cancer. Arrêt forcé. Début d'un combat de 3 ans.</p></div>
-      <div class="about-ev"><span class="about-yr">2019</span><p class="about-ev-txt">Victoire sur la maladie. MY NUGO naît officiellement.</p></div>
-      <div class="about-ev"><span class="about-yr">Auj.</span><p class="about-ev-txt">Créatrice, fondatrice Nugo Biman, programme AWF &amp; Fondation Sephis.</p></div>
+      <div class="about-ev"><span class="about-yr">2008</span><p class="about-ev-txt">Intègre les Nations Unies. Des années au service d'organisations internationales.</p></div>
+      <div class="about-ev"><span class="about-yr">2015</span><p class="about-ev-txt">Diagnostic d'un cancer. Arrêt forcé. Début d'un combat intense.</p></div>
+      <div class="about-ev"><span class="about-yr">2017</span><p class="about-ev-txt">MY NUGO naît — en pleine lutte contre la maladie. La création comme thérapie.</p></div>
+      <div class="about-ev"><span class="about-yr">2018</span><p class="about-ev-txt">Rémission. La force retrouvée. MY NUGO prend son envol.</p></div>
+      <div class="about-ev"><span class="about-yr">Auj.</span><p class="about-ev-txt">Créatrice MY NUGO · Fondatrice Nugo Biman · Alumna du Programme AWF piloté par la Fondation SEPHIS.</p></div>
       <div class="about-ctas">
         <button class="about-cta" onclick="wa('contacter la fondatrice MY NUGO')">Me contacter</button>
         <a class="about-cta" href="https://www.instagram.com/nugo_by_ekd/" target="_blank">Instagram</a>
@@ -756,7 +739,7 @@ document.addEventListener('DOMContentLoaded', function(){
     <div><p class="f-col-title">Livraison</p><ul class="f-links"><li>Afrique</li><li>Europe</li><li>Délais variables</li></ul></div>
     <div><p class="f-col-title">Informations</p><ul class="f-links"><li onclick="wa('les CGV MY NUGO')">CGV &amp; Retours</li><li onclick="wa('contacter MY NUGO')">Contact</li><li onclick="goPage('biman')">Nugo Biman RSE</li></ul></div>
   </div>
-  <div class="footer-bottom"><span>© 2025 MY NUGO — Tous droits réservés</span><span>Abidjan, Côte d'Ivoire</span></div>
+  <div class="footer-bottom"><span>© 2026 MY NUGO — Tous droits réservés</span><span>Abidjan, Côte d'Ivoire</span></div>
   <div class="f-resist">RÉSISTER · CRÉER · INSPIRER</div>
 </footer>
 
