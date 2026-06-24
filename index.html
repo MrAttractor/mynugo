@@ -289,43 +289,57 @@ body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x
      Ne partage jamais cette clé publiquement
 -->
 <script>
-var SHEETS_CONFIG = {
-  API_KEY: 'AIzaSyD0mcctzkIuSJBt8r00HGO1UIG3BfVsG2A',
-  SHEET_ID: '1n9ltI3mHVsPUQvFlAZ--E5r7efGYaEpbmA0VlnRffGY',
-  BASE_URL: 'https://sheets.googleapis.com/v4/spreadsheets'
+var SUPABASE_CONFIG = {
+  URL: '',
+  ANON_KEY: ''
 };
 
 // Données de secours si le sheet est inaccessible
 var FALLBACK = {
   produits: [
-    {id:'PROD_01',nom_fr:'Robe Rayée Lin & Wax',description_fr:'Lin · Wax vert · Sans manches',prix_eur:'38',prix_fcfa:'25000',stock:'10',statut:'disponible',badge:'Nouveau',photo_principale:'images/PROD_01_principale.jpg',categorie:'Robes'},
-    {id:'PROD_02',nom_fr:'Ensemble Bleu Duo',description_fr:'Lin bleu · Wax vert · Veste + pantalon',prix_eur:'38',prix_fcfa:'25000',stock:'8',statut:'disponible',badge:'Look duo',photo_principale:'images/PROD_02_principale.jpg',categorie:'Ensembles'},
-    {id:'PROD_03',nom_fr:'Robe Blanche Kimono',description_fr:'Satin ivoire · Broderie wax',prix_eur:'38',prix_fcfa:'25000',stock:'3',statut:'faible',badge:'Exclusif',photo_principale:'images/PROD_03_principale.jpg',categorie:'Robes'},
-    {id:'PROD_04',nom_fr:'Robe Marron & Crème',description_fr:'Lin · Poches crème · Boutons wax',prix_eur:'38',prix_fcfa:'25000',stock:'6',statut:'disponible',badge:'Bestseller',photo_principale:'images/PROD_04_principale.jpg',categorie:'Robes'}
+    {id:'PROD_01',nom_fr:'Robe Oloa',description_fr:'Dentelle · 4 coloris (blanc, rose, jaune, bleu)',prix_eur:'65',prix_fcfa:'43000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_01_principale.jpg',categorie:'Robes'},
+    {id:'PROD_02',nom_fr:'Robe Lia',description_fr:'Coupe élégante · Fluidité naturelle',prix_eur:'50',prix_fcfa:'33000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_02_principale.jpg',categorie:'Robes'},
+    {id:'PROD_03',nom_fr:'Robe Eliora Court',description_fr:'Bleu ciel · Coupe courte · Légèreté estivale',prix_eur:'50',prix_fcfa:'33000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_03_principale.jpg',categorie:'Robes'},
+    {id:'PROD_04',nom_fr:'Robe Eliora Court',description_fr:'Corail · Coupe courte · Disponible en bleu ciel',prix_eur:'65',prix_fcfa:'43000',stock:'10',statut:'disponible',badge:'LOOK DUO',photo_principale:'images/PROD_04_principale.jpg',categorie:'Robes'},
+    {id:'PROD_05',nom_fr:'Robe Kimono',description_fr:'Jaune & corail · Manches kimono · Fluidité naturelle',prix_eur:'50',prix_fcfa:'33000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_05_principale.jpg',categorie:'Robes'},
+    {id:'PROD_06',nom_fr:'Robe Elena',description_fr:'Élégance raffinée · Silhouette soignée',prix_eur:'60',prix_fcfa:'39000',stock:'10',statut:'disponible',badge:'BESTSELLER',photo_principale:'images/PROD_06_principale.jpg',categorie:'Robes'},
+    {id:'PROD_07',nom_fr:'Robe Teecya',description_fr:'Style contemporain · Allure affirmée',prix_eur:'60',prix_fcfa:'39000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_07_principale.jpg',categorie:'Robes'},
+    {id:'PROD_08',nom_fr:'Ensemble Aymerik',description_fr:'Culotte & haut · Look coordonné · Porter ensemble ou séparé',prix_eur:'70',prix_fcfa:'46000',stock:'10',statut:'disponible',badge:'LOOK DUO',photo_principale:'images/PROD_08_principale.jpg',categorie:'Ensembles'},
+    {id:'PROD_09',nom_fr:'Pantalon Yasmine',description_fr:'Coupe ample · Confort et élégance au quotidien',prix_eur:'40',prix_fcfa:'26000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_09_principale.jpg',categorie:'Pantalons'},
+    {id:'PROD_10',nom_fr:'Boubou Renée',description_fr:'Vert · Boubou contemporain · Pièce signature',prix_eur:'85',prix_fcfa:'56000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_10_principale.jpg',categorie:'Robes'},
+    {id:'PROD_11',nom_fr:'Ensemble Naïla',description_fr:'Pantalon & haut · Silhouette fluide',prix_eur:'40',prix_fcfa:'26000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_11_principale.jpg',categorie:'Ensembles'},
+    {id:'PROD_12',nom_fr:'Robe Désirée',description_fr:'Jaune & blanc · Éclat naturel · Imprimé délicat',prix_eur:'70',prix_fcfa:'46000',stock:'10',statut:'disponible',badge:'BESTSELLER',photo_principale:'images/PROD_12_principale.jpg',categorie:'Robes'},
+    {id:'PROD_13',nom_fr:'Robe Lirane',description_fr:'Élégance intemporelle · Coupe longue',prix_eur:'75',prix_fcfa:'49000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_13_principale.jpg',categorie:'Robes'},
+    {id:'PROD_14',nom_fr:'Combinaison Nourah',description_fr:'Jumpsuit élégant · Confort moderne · Allure unique',prix_eur:'75',prix_fcfa:'49000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_14_principale.jpg',categorie:'Combinaisons'},
+    {id:'PROD_15',nom_fr:'Combinaison Mandia',description_fr:'Pièce forte · Allure inégalée · Collection premium',prix_eur:'120',prix_fcfa:'79000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_15_principale.jpg',categorie:'Combinaisons'},
+    {id:'PROD_16',nom_fr:'Perfecto Armelia',description_fr:'Version simple · Perfecto wax · Pièce iconique',prix_eur:'100',prix_fcfa:'65500',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_16_principale.jpg',categorie:'Vestes'},
+    {id:'PROD_17',nom_fr:'Perfecto Armelia Réversible',description_fr:'Double face · Deux looks en un · Pièce collector',prix_eur:'120',prix_fcfa:'79000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_17_principale.jpg',categorie:'Vestes'},
+    {id:'PROD_18',nom_fr:'Veste Réversible Yaya',description_fr:'Double face · Polyvalence absolue · Style unique',prix_eur:'120',prix_fcfa:'79000',stock:'10',statut:'disponible',badge:'BESTSELLER',photo_principale:'images/PROD_18_principale.jpg',categorie:'Vestes'},
+    {id:'PROD_19',nom_fr:'Paréo Anaëlle',description_fr:'Réversible · Pied de poule · Liberté créative',prix_eur:'80',prix_fcfa:'52500',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_19_principale.jpg',categorie:'Accessoires'},
+    {id:'PROD_20',nom_fr:'Ensemble Maelys',description_fr:'Jupe & haut · Coordonnés · Élégance naturelle',prix_eur:'65',prix_fcfa:'43000',stock:'10',statut:'disponible',badge:'LOOK DUO',photo_principale:'images/PROD_20_principale.jpg',categorie:'Ensembles'},
+    {id:'PROD_21',nom_fr:'Pantalon Ayêla',description_fr:'Coupe tendance · Confort premium · Porter au quotidien',prix_eur:'70',prix_fcfa:'46000',stock:'10',statut:'disponible',badge:'NOUVEAU',photo_principale:'images/PROD_21_principale.jpg',categorie:'Pantalons'},
+    {id:'PROD_22',nom_fr:'Robe Mahi',description_fr:'Marron & orange · Chaleur ivoirienne · Coupe fluide',prix_eur:'40',prix_fcfa:'26000',stock:'10',statut:'disponible',badge:'EXCLUSIF',photo_principale:'images/PROD_22_principale.jpg',categorie:'Robes'}
   ],
   hero: [
-    {ordre:'1',titre_fr:'Lin rayé,\nâme wax',photo:'images/HERO_01.jpg',id_produit:'PROD_01',badge:'Nouveau',actif:'OUI'},
-    {ordre:'2',titre_fr:'Ensemble,\non avance',photo:'images/HERO_02.jpg',id_produit:'PROD_02',badge:'Look duo',actif:'OUI'},
-    {ordre:'3',titre_fr:'Abidjan,\nma scène',photo:'images/HERO_03.jpg',id_produit:'PROD_03',badge:'Exclusif',actif:'OUI'},
-    {ordre:'4',titre_fr:'Terre &\nlumière',photo:'images/HERO_04.jpg',id_produit:'PROD_04',badge:'Bestseller',actif:'OUI'}
+    {ordre:'1',titre_fr:'Yaya,\nla réversible',photo:'images/HERO_01.jpg',id_produit:'PROD_18',badge:'BESTSELLER',actif:'OUI'},
+    {ordre:'2',titre_fr:'Armelia,\nl\'icône',photo:'images/HERO_02.jpg',id_produit:'PROD_16',badge:'EXCLUSIF',actif:'OUI'},
+    {ordre:'3',titre_fr:'Armelia,\nla pièce',photo:'images/HERO_03.jpg',id_produit:'PROD_16',badge:'NOUVEAU',actif:'OUI'},
+    {ordre:'4',titre_fr:'Armelia,\nle collector',photo:'images/HERO_04.jpg',id_produit:'PROD_17',badge:'EXCLUSIF',actif:'OUI'}
   ]
 };
 
-// ── FETCH DEPUIS GOOGLE SHEETS ──
-async function fetchSheet(sheetName) {
-  var url = SHEETS_CONFIG.BASE_URL + '/' + SHEETS_CONFIG.SHEET_ID +
-    '/values/' + sheetName + '?key=' + SHEETS_CONFIG.API_KEY;
-  var res = await fetch(url);
-  if (!res.ok) throw new Error('Sheet inaccessible');
-  var data = await res.json();
-  var rows = data.values;
-  if (!rows || rows.length < 2) return [];
-  var headers = rows[0].map(function(h){ return h.toLowerCase().replace(/ /g,'_'); });
-  return rows.slice(1).map(function(row){
-    var obj = {};
-    headers.forEach(function(h,i){ obj[h] = row[i] || ''; });
-    return obj;
+// ── FETCH DEPUIS SUPABASE ──
+async function fetchSupabase(table, params) {
+  if (!SUPABASE_CONFIG.URL || !SUPABASE_CONFIG.ANON_KEY) throw new Error('Supabase non configuré');
+  var url = SUPABASE_CONFIG.URL + '/rest/v1/' + table + '?select=*' + (params ? '&' + params : '');
+  var res = await fetch(url, {
+    headers: {
+      'apikey': SUPABASE_CONFIG.ANON_KEY,
+      'Authorization': 'Bearer ' + SUPABASE_CONFIG.ANON_KEY
+    }
   });
+  if (!res.ok) throw new Error('Supabase inaccessible');
+  return await res.json();
 }
 
 // ── INITIALISATION ──
@@ -339,45 +353,20 @@ async function initApp() {
   renderProduits();
   hideLanding();
 
-  // Puis tenter de charger depuis Google Sheets
+  // Puis tenter de charger depuis Supabase
   try {
-    var produits = await fetchSheet('PRODUITS');
-    var hero = await fetchSheet('HERO');
+    var produits = await fetchSupabase('produits', 'order=id.asc');
+    var hero = await fetchSupabase('hero_slides', 'actif=eq.true&order=ordre.asc');
 
-    // Normaliser les clés (gérer espaces, majuscules)
-    var heroFiltré = hero.filter(function(h){
-      var actif = '';
-      Object.keys(h).forEach(function(k){
-        if(k.toLowerCase().trim() === 'actif') actif = h[k];
-      });
-      return actif.toString().trim().toUpperCase() === 'OUI';
-    });
+    if (produits && produits.length) STATE.produits = produits;
+    if (hero && hero.length) STATE.hero = hero;
 
-    // Normaliser photo et titre pour hero
-    heroFiltré = heroFiltré.map(function(h){
-      var obj = {};
-      Object.keys(h).forEach(function(k){
-        obj[k.toLowerCase().trim()] = h[k];
-      });
-      return obj;
-    });
+    console.log('✅ Supabase connecté — ' + STATE.produits.length + ' produits, ' + STATE.hero.length + ' slides hero');
 
-    if (produits.length) {
-      STATE.produits = produits.map(function(p){
-        var obj = {};
-        Object.keys(p).forEach(function(k){ obj[k.toLowerCase().trim()] = p[k]; });
-        return obj;
-      });
-    }
-    if (heroFiltré.length) STATE.hero = heroFiltré;
-
-    console.log('✅ Google Sheets connecté — ' + STATE.produits.length + ' produits, ' + STATE.hero.length + ' slides hero');
-
-    // Re-render avec données réelles
     renderHero();
     renderProduits();
   } catch(e) {
-    console.warn('⚠️ Sheet inaccessible, données de secours utilisées:', e.message);
+    console.warn('⚠️ Supabase non disponible, données de secours utilisées:', e.message);
   }
   STATE.loaded = true;
 }
@@ -483,7 +472,7 @@ function hRender(){
 function goPage(n){
   document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
   document.getElementById('page-'+n).classList.add('active');
-  var m=['modes','surprise','biman','about'];
+  var m=['modes','about'];
   document.querySelectorAll('.nav-links li').forEach(function(l,i){ l.classList.toggle('active',m[i]===n); });
   document.querySelectorAll('.mob-item').forEach(function(l,i){ l.classList.toggle('active',m[i]===n); });
   window.scrollTo({top:0,behavior:'smooth'});
@@ -491,29 +480,6 @@ function goPage(n){
 function toggleMenu(){
   document.getElementById('burger').classList.toggle('open');
   document.getElementById('mobMenu').classList.toggle('open');
-}
-
-// ── COFFRET ──
-function selectCoffret(el,nom,prix){
-  document.querySelectorAll('.surp-opt').forEach(function(o){ o.classList.remove('selected'); });
-  el.classList.add('selected');
-  document.getElementById('coffretSelected').value=nom+' — '+prix;
-}
-function submitSurprise(){
-  var c=document.getElementById('coffretSelected').value;
-  if(!c||c.indexOf('lectionnez')>-1||c.indexOf('lectionnez')>-1){ alert('Veuillez choisir un coffret.'); return; }
-  var n=document.getElementById('clientNom').value;
-  var p=document.getElementById('clientTel').value;
-  var o=document.getElementById('clientOcc').value;
-  var m=document.getElementById('clientMsg').value;
-  var t='Bonjour MY NUGO 👋\n\nCoffret : *'+c+'*';
-  if(n) t+='\nNom : '+n;
-  if(p) t+='\nTél : '+p;
-  if(o) t+='\nOccasion : '+o;
-  if(m) t+='\nMessage : '+m;
-  t+='\n\nMerci de me rappeler pour finaliser.';
-  window.open('https://wa.me/2250151939394?text='+encodeURIComponent(t),'_blank');
-  document.getElementById('fSuccess').style.display='block';
 }
 
 // ── WHATSAPP ──
@@ -548,11 +514,11 @@ document.addEventListener('DOMContentLoaded', function(){
 <!-- TICKER -->
 <div class="tk">
   <div class="tk-i">
-    <div class="tk-item"><b>✦</b> Collection Résilience 2026</div>
+    <div class="tk-item"><b>✦</b> Nouvelle Collection 2026</div>
     <div class="tk-item"><b>·</b> RÉSISTER · CRÉER · INSPIRER</div>
     <div class="tk-item"><b>✦</b> Livraison Afrique &amp; Europe</div>
     <div class="tk-item"><b>·</b> Commandez via WhatsApp</div>
-    <div class="tk-item"><b>✦</b> Collection Résilience 2026</div>
+    <div class="tk-item"><b>✦</b> 22 pièces exclusives</div>
     <div class="tk-item"><b>·</b> RÉSISTER · CRÉER · INSPIRER</div>
     <div class="tk-item"><b>✦</b> Livraison Afrique &amp; Europe</div>
     <div class="tk-item"><b>·</b> Commandez via WhatsApp</div>
@@ -564,9 +530,7 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="nav-logo"><img src="logo.png" alt="My Nugo"/></div>
   <div class="nav-desktop">
     <ul class="nav-links">
-      <li class="active" onclick="goPage('modes')">Nugo Modes</li>
-      <li onclick="goPage('surprise')">Nugo Surprise</li>
-      <li onclick="goPage('biman')">Nugo Biman</li>
+      <li class="active" onclick="goPage('modes')">La Collection</li>
       <li onclick="goPage('about')">À Propos</li>
     </ul>
     <button class="nav-cta" onclick="wa('la collection MY NUGO')">Commandez</button>
@@ -576,9 +540,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
 <!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
-  <div class="mob-item active" onclick="goPage('modes');toggleMenu()">Nugo Modes</div>
-  <div class="mob-item" onclick="goPage('surprise');toggleMenu()">Nugo Surprise</div>
-  <div class="mob-item" onclick="goPage('biman');toggleMenu()">Nugo Biman</div>
+  <div class="mob-item active" onclick="goPage('modes');toggleMenu()">La Collection</div>
   <div class="mob-item" onclick="goPage('about');toggleMenu()">À Propos</div>
   <div class="mob-tag">RÉSISTER · CRÉER · INSPIRER</div>
   <button class="mob-cta" onclick="wa('la collection MY NUGO');toggleMenu()">Commandez maintenant</button>
@@ -621,7 +583,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
   <div class="section">
     <div class="sec-hd">
-      <div><h2 class="sec-title">La collection</h2><p class="sec-sub">Résilience — 2026</p></div>
+      <div><h2 class="sec-title">La collection</h2><p class="sec-sub">Nouvelle collection — 2026</p></div>
       <span class="see-all">Voir tout →</span>
     </div>
     <div class="prod-grid" id="prodGrid">
@@ -631,68 +593,6 @@ document.addEventListener('DOMContentLoaded', function(){
   <div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Retour en haut</div>
 </div>
 
-<!-- PAGE SURPRISE -->
-<div class="page" id="page-surprise">
-  <div class="bc"><span class="bc-back" onclick="goPage('modes')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Retour</span><span class="bc-item" onclick="goPage('modes')">Accueil</span><span class="bc-sep">›</span><span class="bc-cur">Nugo Surprise</span></div>
-  <div class="surp-banner"><p class="surp-eye">✦ Nugo Surprise</p><h2 class="surp-title">Un coffret,<br>mille émotions</h2><p class="surp-desc">On a tous besoin de s'offrir un présent ou de faire plaisir à un être aimé.</p></div>
-  <div class="surp-body">
-    <div>
-      <p class="surp-sect-title">Choisissez votre coffret</p>
-      <div class="surp-grid">
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Argent','38 €')"><div class="surp-icon">◇</div><p class="surp-opt-name">Argent</p><p class="surp-opt-price">38 €<br><span style='font-size:11px;color:var(--g400);'>25 000 FCFA</span></p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Gold','76 €')"><div class="surp-icon">◈</div><p class="surp-opt-name">Gold</p><p class="surp-opt-price">76 €<br><span style='font-size:11px;color:var(--g400);'>50 000 FCFA</span></p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret Platine','114 €')"><div class="surp-icon">◆</div><p class="surp-opt-name">Platine</p><p class="surp-opt-price">114 €<br><span style='font-size:11px;color:var(--g400);'>75 000 FCFA</span></p></div>
-        <div class="surp-opt" onclick="selectCoffret(this,'Coffret sur mesure','Devis')"><div class="surp-icon">✦</div><p class="surp-opt-name">Coffret sur mesure</p><p class="surp-opt-price">Sur devis</p></div>
-      </div>
-      <div class="surp-steps">
-        <p class="surp-sect-title">Comment ça marche</p>
-        <div class="surp-step"><span class="surp-step-n">01</span><div><p class="surp-step-ttl">Choisissez</p><p class="surp-step-txt">Sélectionnez votre coffret parmi nos propositions.</p></div></div>
-        <div class="surp-step"><span class="surp-step-n">02</span><div><p class="surp-step-ttl">Exprimez votre besoin</p><p class="surp-step-txt">Remplissez le formulaire — occasion, message personnalisé.</p></div></div>
-        <div class="surp-step"><span class="surp-step-n">03</span><div><p class="surp-step-ttl">On vous rappelle</p><p class="surp-step-txt">Notre équipe vous contacte sous 24h pour validation et devis.</p></div></div>
-        <div class="surp-step"><span class="surp-step-n">04</span><div><p class="surp-step-ttl">Livraison surprise</p><p class="surp-step-txt">Délai variable selon composition. Emballage cadeau inclus.</p></div></div>
-      </div>
-    </div>
-    <div>
-      <div class="surp-form">
-        <p class="surp-form-title">Choisir mon offre</p>
-        <div class="fg"><label class="fl">Coffret choisi</label><input class="fi" id="coffretSelected" readonly value="" placeholder="— Cliquez sur un coffret ci-dessus —"/></div>
-        <div class="fg"><label class="fl">Votre prénom &amp; nom</label><input class="fi" id="clientNom" type="text" placeholder="Ex : Aminata Koné"/></div>
-        <div class="fg"><label class="fl">Votre WhatsApp</label><input class="fi" id="clientTel" type="tel" placeholder="+225 07 00 00 00 00"/></div>
-        <div class="fg"><label class="fl">Occasion</label><select class="fs" id="clientOcc"><option value="">Sélectionner...</option><option>Anniversaire</option><option>Fête des mères</option><option>Mariage / Fiançailles</option><option>Cadeau d'amour</option><option>Me faire plaisir</option><option>Autre</option></select></div>
-        <div class="fg"><label class="fl">Dites-nous un peu plus sur ce que vous recherchez</label><textarea class="ft" id="clientMsg" placeholder="Quelle occasion, quels goûts, quelle taille... Tout ce qui nous aidera à vous conseiller."></textarea></div>
-        <button class="f-submit" onclick="submitSurprise()">Envoyer via WhatsApp →</button>
-        <p class="f-note">Rappel sous 24h · Emballage cadeau inclus · Délais variables</p>
-        <div class="f-success" id="fSuccess"><p>Demande envoyée ✦</p><span>Nous vous rappelons sous 24h</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Retour en haut</div>
-</div>
-
-<!-- PAGE BIMAN -->
-<div class="page" id="page-biman">
-  <div class="bc"><span class="bc-back" onclick="goPage('modes')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>Retour</span><span class="bc-item" onclick="goPage('modes')">Accueil</span><span class="bc-sep">›</span><span class="bc-cur">Nugo Biman</span></div>
-  <div class="biman-banner"><img src="images/BIMAN_01.jpg" alt="Nugo Biman"/><div class="biman-ov"></div><div class="biman-banner-text"><p class="biman-eye">✦ Nugo Biman — Volet RSE</p><h2 class="biman-banner-title">Tout le monde a droit<br>à une seconde vie</h2></div></div>
-  <div class="biman-body">
-    <div>
-      <h3 class="biman-title">Réinsérer,<br>former, élever</h3>
-      <p class="biman-desc">Nugo Biman est le volet RSE de MY NUGO. Nous accompagnons de jeunes femmes victimes de prostitution et jeunes désœuvrés dans un processus complet de réinsertion sociale.</p>
-      <p class="biman-desc">Nous les formons. Nous les aidons à restaurer leur âme et leur dignité. Nous leur donnons les outils pour écrire un nouveau chapitre — parce que tout le monde a droit à une seconde chance.</p>
-      <div class="biman-quote"><p class="biman-qt">"Donner une seconde chance, c'est croire que chaque vie mérite d'être réécrite."</p></div>
-      <button class="biman-cta" onclick="wa('en savoir plus sur Nugo Biman')">Soutenir le programme →</button>
-      <div class="biman-stats">
-        <div class="biman-stat"><span class="biman-num">47</span><span class="biman-lbl">Jeunes accompagnées</span></div>
-        <div class="biman-stat"><span class="biman-num">6</span><span class="biman-lbl">Métiers enseignés</span></div>
-        <div class="biman-stat" style="border-right:none;"><span class="biman-num">3</span><span class="biman-lbl">Ans de programme</span></div>
-      </div>
-      <p class="biman-tags-title">Métiers enseignés</p>
-      <div class="biman-tags"><span class="biman-tag">Chapellerie</span><span class="biman-tag">Bijouterie</span><span class="biman-tag">Maroquinerie</span><span class="biman-tag">Stylisme</span><span class="biman-tag">Modélisme</span><span class="biman-tag">Teinturerie</span></div>
-      <div class="biman-found-quote"><p>"Durant mes années au Ghana, j'ai côtoyé de nombreuses jeunes filles s'adonnant à la prostitution. Cela ne m'a jamais laissée indifférente. Aujourd'hui, j'ai les moyens d'agir."</p><span>— Maimounata Kouma Epse Effi, Fondatrice</span></div>
-    </div>
-  </div>
-  <div class="biman-partners"><span class="biman-partners-lbl">Partenaires &amp; programmes</span><span class="biman-partner">Programme AWF</span><span style="color:var(--g700);">·</span><span class="biman-partner">Fondation Sephis</span><span style="color:var(--g700);">·</span><span class="biman-partner">Fondation Biman</span></div>
-  <div class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Retour en haut</div>
-</div>
 
 <!-- PAGE ABOUT -->
 <div class="page" id="page-about">
@@ -734,10 +634,10 @@ document.addEventListener('DOMContentLoaded', function(){
     <a class="f-soc-link" href="https://wa.me/2250151939394" target="_blank">WhatsApp</a>
   </div>
   <div class="f-grid">
-    <div><p class="f-col-title">Univers</p><ul class="f-links"><li onclick="goPage('modes')">Nugo Modes</li><li onclick="goPage('surprise')">Nugo Surprise</li><li onclick="goPage('biman')">Nugo Biman</li><li onclick="goPage('about')">À Propos</li></ul></div>
+    <div><p class="f-col-title">La marque</p><ul class="f-links"><li onclick="goPage('modes')">La Collection</li><li onclick="goPage('about')">À Propos</li></ul></div>
     <div><p class="f-col-title">Paiement</p><ul class="f-links"><li>PayPal</li><li>Wave</li><li>Orange Money</li><li>Visa · Mastercard</li></ul></div>
     <div><p class="f-col-title">Livraison</p><ul class="f-links"><li>Afrique</li><li>Europe</li><li>Délais variables</li></ul></div>
-    <div><p class="f-col-title">Informations</p><ul class="f-links"><li onclick="wa('les CGV MY NUGO')">CGV &amp; Retours</li><li onclick="wa('contacter MY NUGO')">Contact</li><li onclick="goPage('biman')">Nugo Biman RSE</li></ul></div>
+    <div><p class="f-col-title">Informations</p><ul class="f-links"><li onclick="wa('les CGV MY NUGO')">CGV &amp; Retours</li><li onclick="wa('contacter MY NUGO')">Contact</li></ul></div>
   </div>
   <div class="footer-bottom"><span>© 2026 MY NUGO — Tous droits réservés</span><span>Abidjan, Côte d'Ivoire</span></div>
   <div class="f-resist">RÉSISTER · CRÉER · INSPIRER</div>
