@@ -420,7 +420,7 @@ function renderHero() {
 function renderProduits() {
   var grid = document.getElementById('prodGrid');
   if (!grid) return;
-  var produits = STATE.produits;
+  var produits = STATE.produits.filter(function(p){ return p.photo_principale; });
   grid.innerHTML = '';
   produits.forEach(function(p) {
     var rupture = p.statut === 'rupture';
