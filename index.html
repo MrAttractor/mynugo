@@ -246,6 +246,24 @@ body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x
 .footer-bottom span{font-size:9px;color:var(--g500);}
 .f-resist{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--g700);text-align:center;padding:16px 0;border-top:0.5px solid var(--g800);}
 
+/* POP-UP EVENT */
+.popup-event{background:var(--black);border-top:0.5px solid var(--g800);border-bottom:0.5px solid var(--g800);}
+.popup-ev-inner{display:flex;flex-direction:column;}
+.popup-affiche img{width:100%;display:block;object-fit:cover;}
+.popup-ev-content{padding:36px 20px;}
+.popup-ev-eye{font-size:8px;letter-spacing:5px;text-transform:uppercase;color:var(--g500);margin-bottom:14px;font-family:var(--fb);}
+.popup-ev-title{font-family:var(--fs);font-size:56px;font-style:italic;font-weight:300;color:var(--white);line-height:.88;margin-bottom:24px;}
+.popup-ev-sub{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--g400);margin-bottom:28px;font-family:var(--fb);}
+.popup-ev-details{margin-bottom:28px;border-top:0.5px solid var(--g800);}
+.popup-ev-row{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:0.5px solid var(--g800);}
+.popup-ev-label{font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--g500);flex-shrink:0;min-width:64px;padding-top:3px;font-family:var(--fb);}
+.popup-ev-val{font-size:13px;color:var(--g300);line-height:1.6;}
+.popup-ev-val b{color:var(--white);font-weight:600;}
+.popup-ev-cta{display:inline-flex;align-items:center;gap:10px;font-size:9px;letter-spacing:3px;text-transform:uppercase;font-weight:600;color:var(--black);background:var(--white);border:none;padding:15px 28px;cursor:pointer;font-family:var(--fb);transition:background .2s;}
+.popup-ev-cta:hover{background:var(--g100);}
+.popup-ev-video{margin-top:20px;}
+.popup-ev-video video{width:100%;display:block;max-height:220px;object-fit:cover;}
+
 /* WA FLOAT */
 .wa-float{position:fixed;bottom:20px;right:20px;background:#25D366;color:var(--white);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:100;box-shadow:0 3px 14px rgba(0,0,0,.25);text-decoration:none;}
 
@@ -276,6 +294,12 @@ body{font-family:var(--fb);background:var(--white);color:var(--black);overflow-x
   .bc{padding:10px 40px;}
   .filters{padding:0 40px;}
   .footer{padding:44px 40px 0;}
+  .popup-ev-inner{flex-direction:row;min-height:600px;}
+  .popup-affiche{width:45%;flex-shrink:0;}
+  .popup-affiche img{height:100%;object-fit:cover;}
+  .popup-ev-content{flex:1;padding:56px 52px;display:flex;flex-direction:column;justify-content:center;}
+  .popup-ev-title{font-size:80px;}
+  .popup-ev-video video{max-height:none;}
 }
 @media(max-width:767px){
   .nav-desktop{display:none;}
@@ -580,7 +604,39 @@ document.addEventListener('DOMContentLoaded', function(){
     <a class="soc-link" href="https://www.tiktok.com/@nugobyekd" target="_blank">TikTok @nugobyekd</a>
   </div>
 
-  
+  <!-- POP-UP STORE PARIS -->
+  <div class="popup-event">
+    <div class="popup-ev-inner">
+      <div class="popup-affiche">
+        <img src="images/POPUP_AFFICHE.jpg" alt="MY NUGO Pop-Up Paris — 01 au 04 Juillet 2026"/>
+      </div>
+      <div class="popup-ev-content">
+        <p class="popup-ev-eye">Événement éphémère · Paris</p>
+        <h2 class="popup-ev-title">Pop-Up<br>Paris</h2>
+        <p class="popup-ev-sub">MY NUGO DÉBARQUE DANS LA CAPITALE</p>
+        <div class="popup-ev-details">
+          <div class="popup-ev-row">
+            <span class="popup-ev-label">Dates</span>
+            <span class="popup-ev-val"><b>01 — 04 Juillet 2026</b></span>
+          </div>
+          <div class="popup-ev-row">
+            <span class="popup-ev-label">Horaires</span>
+            <span class="popup-ev-val"><b>10H – 19H</b></span>
+          </div>
+          <div class="popup-ev-row">
+            <span class="popup-ev-label">Lieu</span>
+            <span class="popup-ev-val">19 Rue du Banquier<br>75013 Paris</span>
+          </div>
+        </div>
+        <button class="popup-ev-cta" onclick="wa('Pop-Up MY NUGO Paris — 01 au 04 juillet 2026 · 19 rue du Banquier 75013')">Je participe →</button>
+        <div class="popup-ev-video">
+          <video autoplay muted loop playsinline>
+            <source src="images/popup-video.mp4" type="video/mp4"/>
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div class="section">
     <div class="sec-hd">
